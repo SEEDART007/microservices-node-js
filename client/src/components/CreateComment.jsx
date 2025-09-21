@@ -40,7 +40,7 @@ useEffect(()=>{
       <ul>
         {comments.map((comment, index) => (
           <li key={index} className="text-sm">
-            {comment.text}
+            {comment.content}
           </li>
         ))}
       </ul>

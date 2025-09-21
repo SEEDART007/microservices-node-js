@@ -1,6 +1,7 @@
 const {snippet} = require('../database/index')
 const {randomBytes} = require('crypto')
-exports.createSnippet = (req,res) =>{
+const axios = require('axios')
+exports.createSnippet = async(req,res) =>{
    const id = randomBytes(4).toString('hex')
    const {title,code} = req.body;
    snippet[id] = {
@@ -8,6 +9,14 @@ exports.createSnippet = (req,res) =>{
     title,
     code
    }
+   //best place to publish an event 
+ await  axios.post("http://localhost:8000/events",{
+      type:"SnippetCreated",
+      data:{
+         id,
+         title
+      }
+   })
    return res.status(201).json({
     success:true,
     snippet:snippet[id],
